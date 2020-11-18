@@ -22,10 +22,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: python test1.py
+        run: python ./tests/checkDataset.py
         id: "1"
       - name: Run a one-line script
-        run: python test2.py
+        run: python .py
         id: "2"
       - name: Run a one-line script
         run: python test3.py
@@ -42,4 +42,4 @@ jobs:
           pip install pylint
       - name: Run Pylint
         run: |
-          pylint mnadig/CommunityHealth.py
+          pylint mnadig/kmeans.py
