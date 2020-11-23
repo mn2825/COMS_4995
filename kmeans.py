@@ -8,108 +8,84 @@ import dash_html_components as html
 import plotly.express as px
 import random
 from mpl_toolkits import mplot3d
+import matplotlib._color_data as mcd
 
-def lloyds(data):#implementation for 4 features
-    labels = [0] * len(data)
-    clusterNum = 5
-    c_1 = data[int(len(data)/2)] #random assignment for cluster 1
-    distances = []
-    for i in range(0, len(data)):
-        distances.append(LA.norm(c_1 - data[i])) 
-    distances = distances.sort(reverse=True)
-    c_2 = data[0] #cluster 2 is the farthest data point from cluster 1
-    c_3 = data[1] 
-    c_4 = data[2]
-    c_5 = data[3]
+def getCenters(data, distances, num):
+    centers = []
+    center_lists = [[] for i in range(num)]
+    for i in range(1, num):
+        centers.append(data[distances[i][0]])
+    return centers, center_lists
 
-    c1_list = []
-    c2_list = []
-    c3_list = []
-    c4_list = []
-    c5_list = []
-    j = 0
-    while(1):
-        j+=1
-        print(j)
-        for i in range(0, len(data)):
-            point_to_center_list= [LA.norm(data[i]- c_1), LA.norm(data[i]- c_2), LA.norm(data[i]- c_3), LA.norm(data[i]- c_4), LA.norm(data[i]- c_5)]
-            if(np.argmin(point_to_center_list)==0):
-                labels[i] = 1
-            elif(np.argmin(point_to_center_list) == 1):
-                labels[i]= 2
-            elif(np.argmin(point_to_center_list) == 2):
-                labels[i]= 3
-            elif(np.argmin(point_to_center_list) == 3):
-                labels[i] = 4
-            else:
-                labels[i] = 5
-        for i in range(0, len(labels)):
-            if(labels[i]==1):
-                c1_list.append(data[i])
-            elif(labels[i]==2):
-                c2_list.append(data[i])
-            elif(labels[i]==3):
-                c3_list.append(data[i])
-            elif(labels[i]==4):
-                c4_list.append(data[i])
-            else:
-                c5_list.append(data[i])
-        new_c_1 = [np.mean([item[0] for item in c1_list]), np.mean([item[1] for item in c1_list]), np.mean([item[2] for item in c1_list]), np.mean([item[3] for item in c1_list])]
-        new_c_2 = [np.mean([item[0] for item in c2_list]), np.mean([item[1] for item in c2_list]), np.mean([item[2] for item in c2_list]), np.mean([item[3] for item in c2_list])]
-        new_c_3 = [np.mean([item[0] for item in c3_list]), np.mean([item[1] for item in c3_list]), np.mean([item[2] for item in c3_list]), np.mean([item[3] for item in c3_list])]
-        new_c_4 = [np.mean([item[0] for item in c4_list]), np.mean([item[1] for item in c4_list]), np.mean([item[2] for item in c4_list]), np.mean([item[3] for item in c4_list])]
-        new_c_5 = [np.mean([item[0] for item in c5_list]), np.mean([item[1] for item in c5_list]), np.mean([item[2] for item in c5_list]), np.mean([item[3] for item in c5_list])]
-        if(np.array_equal(new_c_1, c_1) and np.array_equal(new_c_2, c_2) and np.array_equal(new_c_3,c_3) and np.array_equal(new_c_4,c_4) and np.array_equal(new_c_5,c_5)):
-            break
-        else:
-            c_1 = new_c_1
-            c_2 = new_c_2
-            c_3 = new_c_3
-            c_4 = new_c_4
-            c_5 = new_c_5
-            c1_list = []
-            c2_list = []
-            c3_list = []
-            c4_list = []
-            c5_list = []
-    print(len(c1_list), len(c2_list), len(c3_list), len(c4_list), len(c5_list))
-
-    plt.scatter([item[0] for item in c1_list], [item[1] for item in c1_list], color = 'red')
-    plt.scatter([item[0] for item in c2_list],[item[1] for item in c2_list],  color = 'green')
-    plt.scatter([item[0] for item in c3_list],[item[1] for item in c3_list],  color = 'blue')
-    plt.scatter([item[0] for item in c4_list],[item[1] for item in c4_list],  color = 'orange')
-    plt.scatter([item[0] for item in c5_list],[item[1] for item in c5_list],  color = 'purple')
-
-    plt.scatter(c_1[0], c_1[1], color = 'black', marker = 'x', s=50, label="Cluster 1")
-    plt.scatter(c_2[0], c_2[1], color = 'black', marker = 'x', s=50, label="Cluster 2")
-    plt.scatter(c_3[0], c_3[1], color = 'black', marker = 'x', s=50, label="Cluster 3")
-    plt.scatter(c_4[0], c_4[1], color = 'black', marker = 'x', s=50, label="Cluster 4")
-    plt.scatter(c_5[0], c_5[1], color = 'black', marker = 'x', s=50, label="Cluster 5")
-
-    plt.title("K-Means prediction for five borough clusters") 
+def plot(centers, center_lists):
+    labels = ["Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4", "Cluster 5"]
+    for i in range(0, len(centers)):
+        a = np.random.randint(0, len(list(mcd.CSS4_COLORS.values())))
+        plt.scatter([item[0] for item in center_lists[i]], [item[1] for item in center_lists[i]], color = list(mcd.CSS4_COLORS.values())[a])
+        plt.scatter(centers[i][0], centers[i][1], color = 'black',  marker = 'x', s=50, label=labels[i])
+    plt.xlabel("")
+    plt.ylabel("")
+    plt.title("K-Means prediction for five borough clusters")
     plt.show()
 
-def processAndRun(featuresList):
+def lloyds(data, num):
+    labels = [0] * len(data)
+    c_1 = data[int(len(data)/2)] 
+    distances = []
+    for i in range(0, len(data)):
+        distances.append((i, LA.norm(c_1 - data[i])))
+    distances.sort(reverse=True, key=lambda x:x[1])
+    centers, center_lists = getCenters(data,distances, num)
+    centers.insert(0, c_1)
+    center_lists.insert(0, [])
+    labels = [0] * len(data)
+    while(1):
+        point_to_center_list = []
+        for i in range(0, len(data)):
+            point_to_center_list = []
+            for j in range(0, len(centers)):
+                point_to_center_list.append(LA.norm(data[i]- centers[j]))
+            labels[i] = np.argmin(point_to_center_list)
+        for i in range(0, len(labels)):
+            center_lists[labels[i]].append(data[i])
+        new_centers = [[] for i in range(len(centers))]
+        for i in range(0, len(new_centers)):
+            for j in range(0, len(centers)):
+                new_centers[i].append(np.mean([item[j] for item in center_lists[i]]))
+        allSame = []
+        for i in range(0, len(centers)):
+            if(np.array_equal(new_centers[i], centers[i])):
+                allSame.append("True")
+            else:
+                allSame.append("False")
+        if allSame.count("True") == len(allSame):
+            break
+        else:
+            for a in range(0, len(centers)):
+                centers[a] = new_centers[a]
+            center_lists = [[] for i in range(len(centers))]
+    plot(centers, center_lists)
+
+def processAndRun(featuresList, num):
     df = pd.read_excel('./data/comm_public_2017.xlsx')
     data = [np.array([row[num] for num in featuresList]) for row in df.values]
     data1 = []
+    isNan = []
     for person in data:
-        if np.isnan(person[0]) or np.isnan(person[1]) or np.isnan(person[2]) or np.isnan(person[3]):
-            continue
-        else:
+        for i in range(0, len(featuresList)):
+            if np.isnan(person[i]):
+                isNan.append(False)
+            else:
+                isNan.append(True)
+        if isNan.count(True) == len(isNan):     
             data1.append(person)
+        isNan = []
     
-    #Add noise to each of the four parameters
+    #Add noise to each of parameters
     for i in range(len(data1)):
-        data1[i][0] = data1[i][0] + random.uniform(0,1)
-    for i in range(len(data1)):
-        data1[i][1] = data1[i][1] + random.uniform(0,1)
-    for i in range(len(data1)):
-        data1[i][2] = data1[i][2] + random.uniform(0,1)
-    for i in range(len(data1)):
-        data1[i][3] = data1[i][3] + random.uniform(0,1)
-
-    lloyds(data1)
+        for j in range(len(featuresList)):
+            data1[i][j] = data1[i][j] + random.uniform(0,1)
+    lloyds(data1, num)
 
 if __name__ =='__main__':
     inputFeatures = []
@@ -122,12 +98,7 @@ if __name__ =='__main__':
         num = int(input())
         inputFeatures.append(num)
     print("Features you showed: ", inputFeatures)
-
-    processAndRun(inputFeatures)
-
-
-
-
+    processAndRun(inputFeatures,len(inputFeatures))
 
 
 
