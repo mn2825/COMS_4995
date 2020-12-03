@@ -43,8 +43,7 @@ jobs:
           parallel-finished: true   
       - uses: coverallsapp/github-action@master
         with: 
-          github-token: '7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ'
-          
+          github-token: ${{ '7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ' }}
       - name: Install and Run Pylint
         run: |
           pip install pytest
