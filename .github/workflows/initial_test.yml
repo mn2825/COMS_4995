@@ -1,6 +1,7 @@
 # This is a basic workflow to help you get started with Actions
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
+name: CI
 on:
   pull_request:
     branches: [ master ]
@@ -16,6 +17,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ 7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ }}        
 
       # Runs a single command using the runners shell
       - name: Run pytest
