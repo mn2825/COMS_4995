@@ -3,39 +3,29 @@ on:
   pull_request:
     branches: [ master ]
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   DatasetTest:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2    
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
       - name: Run Code Coverage
         run: |
           pip install wheel
           pip install pytest
+          pip install xlrd
+          pip install pandas
           pip install pytest-cov
-          pip install coveralls 
-          pytest -q --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
+          python -m pytest -q --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with: 
-          parallel: true
-          flag-name: DatasetTest
-
-  coveralls_finish:
-    needs: DatasetTest 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
+      - name: Codecov
+        uses: codecov/codecov-action@v1
         with:
-          parallel-finished: true   
-      - uses: coverallsapp/github-action@master 
-        with: 
-          github-token: '7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ'
-          
-      - name: Install and Run Pylint
-        run: |
-          python install pytest
-          pylint kmeans.py
+          file: ./coverage.xml
+          fail_ci_if_error: true
+          verbose: true 
