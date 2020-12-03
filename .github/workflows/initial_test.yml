@@ -17,7 +17,7 @@ jobs:
           pytest -q --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
 
       - name: Coveralls
-        uses: CH/coveralls-python
+        uses: actions/checkout@v2
         with: 
           parallel: true
           flag-name: DatasetTest
@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
-        uses: CH/coveralls-python
+        uses: actions/checkout@v2
         with:
           parallel-finished: true   
-      - uses: CH/coveralls-python
+      - uses: actions/checkout@v2
         with: 
           github-token: '7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ'
           
