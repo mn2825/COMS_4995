@@ -22,7 +22,8 @@ jobs:
           python install pytest
           pip install pytest-cov
           pip install coveralls 
-          pytest --cov-report=xml --cov=CommunityHealth tests/
+          pytest -q --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
+
       - name: Coveralls
         uses: CH/coveralls-python
         with: 
