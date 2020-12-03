@@ -24,28 +24,11 @@ jobs:
           pip install xlrd
           pip install pandas
           pip install pytest-cov
-          pip install coveralls 
           python -m pytest -q --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
+      - name: Codecov
+        uses: codecov/codecov-action@v1
         with:
-          github-token: '7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ'
-          parallel: true
-          flag-name: DatasetTest
-
-  coveralls_finish:
-    needs: DatasetTest 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
-        with:
-          parallel-finished: true   
-      - uses: coverallsapp/github-action@master
-        with: 
-          github-token: '7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ'
-      - name: Install and Run Pylint
-        run: |
-          pip install pytest
-          pylint kmeans.py
+          file: ./coverage.xml
+          fail_ci_if_error: true
+          verbose: true
