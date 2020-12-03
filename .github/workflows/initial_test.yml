@@ -1,4 +1,3 @@
-#trigger workflow
 name: CI
 on:
   pull_request:
@@ -29,14 +28,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
-        uses: actions/checkout@v2
+        uses: coverallsapp/github-action@master #updated uses
         with:
           parallel-finished: true   
-      - uses: actions/checkout@v2
+      - uses: coverallsapp/github-action@master
         with: 
           github-token: '7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ'
           
       - name: Install and Run Pylint
         run: |
-          python install pytest
-          pylint mnadig/kmeans.py
+          pip install pytest
+          pylint kmeans.py
