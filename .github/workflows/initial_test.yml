@@ -18,7 +18,7 @@ jobs:
           pytest -q --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
 
       - name: Coveralls
-        uses: actions/checkout@v2
+        uses: coverallsapp/github-action@master
         with: 
           parallel: true
           flag-name: DatasetTest
