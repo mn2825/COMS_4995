@@ -45,4 +45,4 @@ jobs:
       - name: Install and Run Pylint
         run: |
           python install pytest
-         pylint mnadig/kmeans.py
+          pylint kmeans.py
