@@ -9,36 +9,37 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  DatasetTest:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ 7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ }}        
-
-      # Runs a single command using the runners shell
-      - name: Run pytest
-        run: pytest -q --cmdopt="../data/comm_public_2017.xlsx"
-        id: "1"
-      - name: Run a one-line script
-        run: python test4.py
-        id: "4"
-      - name: Run a one-line script
-        run: python test5.py
-        id: "5"
-      - name: Code Coverage
+      - uses: actions/checkout@v2    
+      - name: Run Code Coverage
         run: |
-          python -m pip install --upgrade pip
           python install pytest
           pip install pytest-cov
           pip install coveralls 
           pytest --cov-report=xml --cov=CommunityHealth tests/
+      - name: Coveralls
+        uses: CH/coveralls-python
+        with: 
+          parallel: true
+          flag-name: DatasetTest
+
+  coveralls_finish:
+    needs: DatasetTest 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: CH/coveralls-python
+        with:
+          parallel-finished: true   
+      - uses: CH/coveralls-python
+        with: 
+          github-token: '7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ'
           
       - name: Install and Run Pylint
         run: |
