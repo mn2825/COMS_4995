@@ -31,7 +31,7 @@ jobs:
         uses: coverallsapp/github-action@master #updated uses
         with:
           parallel-finished: true   
-      - uses: coverallsapp/github-action@master
+      - uses: coverallsapp/github-action@master #update uses
         with: 
           github-token: '7I9WEReWyMk919Od81kKtqTdDzQ0id7tJ'
           
