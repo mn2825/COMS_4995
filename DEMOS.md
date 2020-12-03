@@ -7,6 +7,8 @@ print("-------------------------------------------------------")
 print(list(enumerate(df.columns)))
 ```
 ![Image](/images/list_of_features.png?raw=true)
+The image above shows the list of features available to you from the 2017 CHS dataset. The user can select any number of features (at least 2) to perform K-means clustering on. 
+
 
 # Choose features to perform clustering
 ![Image](/images/add_features.png?raw=true)
