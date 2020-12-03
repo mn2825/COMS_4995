@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2    
       - name: Run Code Coverage
         run: |
-          python install pytest
+          pip install pytest
           pip install pytest-cov
           pip install coveralls 
           pytest -q --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
