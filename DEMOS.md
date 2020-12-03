@@ -14,10 +14,10 @@ The image above shows the list of features available to you from the 2017 CHS da
 
 
 
-# 2, Choose features to perform clustering
+# 2.  Choose features to perform clustering
 ![Image](/images/add_features.png?raw=true)
 
-In this example, the user choose four features (14, 39, 66, and 36) which address questions regarding race, experience with medical care, smoking, and insurance. K-Means will now compute the centers of the five clusters/regions we are aiming to identify within the data based on the chosen features. 
+In this example, the user chose four features (14, 39, 66, and 36) which address questions regarding race, experience with medical care, smoking, and insurance. K-Means will now compute the centers of the five clusters/regions we are aiming to identify within the data based on the chosen features. 
 
 
 
