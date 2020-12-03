@@ -12,8 +12,8 @@ import matplotlib._color_data as mcd
 
 def getCenters(data, distances, num):
     centers = []
-    center_lists = [[] for i in range(num)]
-    for i in range(1, num):
+    center_lists = [[] for i in range(0,4)]
+    for i in range(1, 5):
         centers.append(data[distances[i][0]])
     return centers, center_lists
 
@@ -22,6 +22,7 @@ def plot(centers, center_lists):
     for i in range(0, len(centers)):
         a = np.random.randint(0, len(list(mcd.CSS4_COLORS.values())))
         plt.scatter([item[0] for item in center_lists[i]], [item[1] for item in center_lists[i]], color = list(mcd.CSS4_COLORS.values())[a])
+    for i in range(0, len(centers)):    
         plt.scatter(centers[i][0], centers[i][1], color = 'black',  marker = 'x', s=50, label=labels[i])
     plt.xlabel("")
     plt.ylabel("")
@@ -38,6 +39,7 @@ def lloyds(data, num):
     centers, center_lists = getCenters(data,distances, num)
     centers.insert(0, c_1)
     center_lists.insert(0, [])
+    print(len(centers), len(center_lists))
     labels = [0] * len(data)
     while(1):
         point_to_center_list = []
@@ -49,8 +51,9 @@ def lloyds(data, num):
         for i in range(0, len(labels)):
             center_lists[labels[i]].append(data[i])
         new_centers = [[] for i in range(len(centers))]
+        print(len(new_centers))
         for i in range(0, len(new_centers)):
-            for j in range(0, len(centers)):
+            for j in range(0, num):
                 new_centers[i].append(np.mean([item[j] for item in center_lists[i]]))
         allSame = []
         for i in range(0, len(centers)):
