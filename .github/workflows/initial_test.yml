@@ -1,4 +1,3 @@
-# events but only for the master branch
 name: CI
 on:
   pull_request:
