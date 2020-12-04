@@ -1,6 +1,6 @@
 ![GitHub](https://img.shields.io/github/license/mn2825/CommunityHealth)
 ![Testing-Github Actions](https://github.com/mn2825/CommunityHealth/workflows/CI/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/mn2825/CommunityHealth/badge.svg?branch=master)](https://coveralls.io/github/mn2825/CommunityHealth?branch=master)
+[![codecov](https://codecov.io/gh/mn2825/CommunityHealth/branch/master/graph/badge.svg?token=HGw2DMEaDT)](https://codecov.io/gh/mn2825/CommunityHealth)
 [![Documentation Status](https://readthedocs.org/projects/communityhealth/badge/?version=latest)](https://communityhealth.readthedocs.io/en/latest/?badge=latest)
 
 Problem: 
