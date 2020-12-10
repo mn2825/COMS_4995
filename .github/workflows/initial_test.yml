@@ -20,7 +20,7 @@ jobs:
           pip install pytest-cov
           pip install matplotlib
           pip install pylint
-          python3.7 -m pytest tests/test_dataset.py --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
+          python3 -m pytest tests/test_dataset.py --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
 
       - name: Codecov
         uses: codecov/codecov-action@v1
@@ -31,4 +31,4 @@ jobs:
 
       - name: Run Pylint
         run: |
-          python3.7 -m pytest test_lint.py kmeans.py
+          python3 -m pytest test_lint.py kmeans.py
