@@ -18,9 +18,9 @@ jobs:
           pip install pytest-cov
           pip install matplotlib
           pip install pylint
-          python -m pytest -q --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
+          python -m pytest test_dataset.py --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
 
-      - name: Codecov #retr
+      - name: Codecov
         uses: codecov/codecov-action@v1
         with:
           file: ./coverage.xml
