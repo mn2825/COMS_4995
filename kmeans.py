@@ -69,13 +69,13 @@ def lloyds(data, num):
             center_lists = [[] for i in range(len(centers))]
     plot(centers, center_lists)
 def computeAlpha(data, labels):
-	z_0 = labels.count(0)
-	z_1 = labels.count(1)
-	z_2 = labels.count(2)
-	z_3 = labels.count(3)
-	z_4 = labels.count(4)
-	alphas = [z_0, z_1, z_2, z_3, z_4]
-	return alphas
+    z_0 = labels.count(0)
+    z_1 = labels.count(1)
+    z_2 = labels.count(2)
+    z_3 = labels.count(3)
+    z_4 = labels.count(4)
+    alphas = [z_0, z_1, z_2, z_3, z_4]
+    return alphas
 
 def computeDistances(point, points,alpha): #alpha values for a particular cluster j (0 or 1)
     point = np.reshape(point,(1,-1))
@@ -121,25 +121,25 @@ def lloyds_kernel(data, num):
     centers.insert(0, c_1)
     center_lists.insert(0, [])
     labels = [0] * len(data)
-	for i in range(0, len(data)):
-		d = [computeInitial(data[i], centers[0]), computeInitial(data[i], centers[1]), computeInitial(data[i], centers[2]), computeInitial(data[i], centers[3]), computeInitial(data[i], centers[4])]
-		if (np.argmin(d) == 0):
-			center_lists[0].append(data[i])
-		elif(np.argmin(d) == 1):
-			center_lists[1].append(data[i])
-		elif(np.argmin(d) == 2):
-			center_lists[2].append(data[i])
-		elif(np.argmin(d) ==3):
-			center_lists[3].append(data[i])
-		else:
-			center_lists[4].append(data[i])
+    for i in range(0, len(data)):
+        d = [computeInitial(data[i], centers[0]), computeInitial(data[i], centers[1]), computeInitial(data[i], centers[2]), computeInitial(data[i], centers[3]), computeInitial(data[i], centers[4])]
+        if (np.argmin(d) == 0):
+            center_lists[0].append(data[i])
+        elif(np.argmin(d) == 1):
+            center_lists[1].append(data[i])
+        elif(np.argmin(d) == 2):
+            center_lists[2].append(data[i])
+        elif(np.argmin(d) ==3):
+            center_lists[3].append(data[i])
+        else:
+            center_lists[4].append(data[i])
     while(1):
         point_to_center_list = []
-		alphas = computeAlpha(data, labels)
+        alphas = computeAlpha(data, labels)
         for i in range(0, len(data)):
             point_to_center_list = []
             for j in range(0, len(centers)):
-				alpha = alphas[j]
+                alpha = alphas[j]
                 point_to_center_list.append(computeDistances(data[i], center_lists[j], alpha))
             labels[i] = np.argmin(point_to_center_list)
         for i in range(0, len(labels)):
