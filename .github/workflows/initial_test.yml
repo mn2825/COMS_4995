@@ -1,4 +1,3 @@
-#Pylint addition
 name: CI
 on:
   pull_request:
