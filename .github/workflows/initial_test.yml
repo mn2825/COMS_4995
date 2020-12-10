@@ -1,4 +1,4 @@
-name: CI
+name: CI #retry
 on:
   pull_request:
     branches: [ master ]
@@ -18,7 +18,7 @@ jobs:
           pip install pytest-cov
           python -m pytest -q --cmdopt="data/comm_public_2017.xlsx" --cov-report=xml --cov=tests/
 
-      - name: Codecov
+      - name: Codecov #retry with test_lint.py file
         uses: codecov/codecov-action@v1
         with:
           file: ./coverage.xml
