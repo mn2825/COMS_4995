@@ -25,7 +25,7 @@ jobs:
           fail_ci_if_error: true
           verbose: true
 
-      - name: Install and Run Pylint
+      - name: Install and Run Pylint #install and run
         run: |
           pip install pylint
 		  python -m pylint ../../kmeans.py
