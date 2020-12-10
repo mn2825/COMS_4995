@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
-from kmeans import getCenters
-from kmeans import computeAlpha
+from kmeans import get_centers
+from kmeans import compute_alpha
 from kmeans import lloyds
 from kmeans import plot
 
