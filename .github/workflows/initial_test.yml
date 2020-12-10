@@ -28,3 +28,4 @@ jobs:
       - name: Install and Run Pylint
         run: |
           pip install pylint
+		  python -m pylint ../../kmeans.py
