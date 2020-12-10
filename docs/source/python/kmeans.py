@@ -99,6 +99,16 @@ def lloyds(data, num):
     plot(centers, center_lists)
 
 def computeAlpha(data, labels):
+    """Computes number of data points in each cluster for each round of the kernelized Lloyd's algorithm
+    
+    Parameters
+    ----------
+    data
+        List of vectorized data points.
+    labels
+        Assigned labels for each data point.
+
+    """
     z_0 = labels.count(0)
     z_1 = labels.count(1)
     z_2 = labels.count(2)
@@ -108,6 +118,18 @@ def computeAlpha(data, labels):
     return alphas
 
 def computeDistances(point, points,alpha): #alpha values for a particular cluster j (0 or 1)
+    """Computes kernel function on a data point.
+    
+    Parameters
+    ----------
+    point
+        Point to be kernelized.
+    points
+        Other data points necessary to compute kernel function.
+    alpha
+        Alpha values for clusters 1-5.
+
+    """
     point = np.reshape(point,(1,-1))
     #first = polynomial_kernel(point, point, degree=2)
     #first = linear_kernel(point, point)
@@ -126,6 +148,16 @@ def computeDistances(point, points,alpha): #alpha values for a particular cluste
     return distance
 
 def computeInitial(point1, point2):
+    """Compute distance between two data points in kernelized space
+    
+    Parameters
+    ----------
+    point1
+        First point
+    point2
+        Second point, often the cluster center.
+
+    """
     point1 = np.reshape(point1, (1,-1))
     point2 = np.reshape(point2, (1,-1))
     #first = polynomial_kernel(point1, point1, degree=2)
@@ -141,6 +173,15 @@ def computeInitial(point1, point2):
     return distance
 
 def lloyds_kernel(data, num):
+    """Performs the kernelized version of Lloyd algorithm for k-Means Clustering. Once data points no longer switch from a previously assigned cluster to a new one, data points are plott
+    
+    Parameters
+    ----------
+    data
+        List of vectorized data points.
+    num
+        Number of chosen features.
+    """
     labels = [0] * len(data)
     c_1 = data[int(len(data)/2)]
     distances = []
@@ -192,7 +233,17 @@ def lloyds_kernel(data, num):
                 centers[a] = new_centers[a]
             center_lists = [[] for i in range(len(centers))]
     plot(centers, center_lists)
+
 def processAndRun(featuresList, num):
+    """Preprocesses data based on the features chosen by the user
+    
+    Parameters
+    ----------
+    featuresList
+        Column numbers corresponding to chosen features.
+    num
+        Number of features chosen.
+    """
     df = pd.read_excel('./data/comm_public_2017.xlsx')
     data = [np.array([row[num] for num in featuresList]) for row in df.values]
     data1 = []
