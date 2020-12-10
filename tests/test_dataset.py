@@ -20,14 +20,14 @@ def test_dataset(cmdopt):
 def test_center_inits():
 	data = [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10)]
 	distances = [(0,0.1),(1,0.2), (2, 0.3), (3,0.4), (4, 0.5), (5, 0.6)]
-	centers, center_lists = getCenters(data, distances, 5)
+	centers, center_lists = get_centers(data, distances, 5)
 	if len(centers) != len(center_lists) or len(centers) != 4:
 		pytest.fail("{}".format("Centers and center lists are not initialized correctly."))
 
 def test_alpha_int():
 	data = None
 	labels = [0,1,2,3,1,2,4]
-	alphas = computeAlpha(data, labels)
+	alphas = compute_alpha(data, labels)
 	if len(alphas) !=5:
 		pytest.fail("{}".format("Alphas list not initialized correctly."))
 	if alphas[0] != 1 or alphas[1] != 2 or alphas[2] != 2 or alphas[3] != 1 or alphas[4] != 1:
