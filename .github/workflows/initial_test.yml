@@ -34,4 +34,4 @@ jobs:
 
       - name: Run Pylint
         run: |
-          python3 -m pytest test_lint.py kmeans.py
+          python3 -m pytest tests/test_lint.py kmeans.py
