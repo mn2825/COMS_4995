@@ -24,3 +24,8 @@ jobs:
           file: ./coverage.xml
           fail_ci_if_error: true
           verbose: true
+
+      - name: Install and Run Pylint
+        run: |
+          pip install pylint
+          pylint ../../kmeans.py
