@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with: 
+        with:
           python-version: '3.7'
       - name: Run Code Coverage
         run: |
