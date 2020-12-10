@@ -11,7 +11,15 @@ from mpl_toolkits import mplot3d
 import matplotlib._color_data as mcd
 
 def getCenters(data, distances, num):
-    """ An example for what thsi returns
+    """ Returns list of initialized cluster centers and cluster lists
+
+    Parameters
+    ----------
+    data
+        List of vectorized data points.
+    distances
+        List of norms between first cluster and all data points.
+     
     """
     centers = []
     center_lists = [[] for i in range(0,4)]
@@ -20,6 +28,16 @@ def getCenters(data, distances, num):
     return centers, center_lists
 
 def plot(centers, center_lists):
+    """ Plots cluster centers and data points based on assigned cluster
+    
+    Parameters
+    ----------
+    centers
+        List of vectorized center points
+    center_lists
+        List of all the points in each cluster as determined by K-Means
+
+    """
     labels = ["Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4", "Cluster 5"]
     for i in range(0, len(centers)):
         a = np.random.randint(0, len(list(mcd.CSS4_COLORS.values())))
@@ -32,6 +50,16 @@ def plot(centers, center_lists):
     plt.show()
 
 def lloyds(data, num):
+    """Performs the Lloyd algorithm for k-Means Clustering. Once data points no longer switch from a previously assigned cluster to a new one, data points are plotted.
+    
+    Parameters
+    ----------
+    data
+        List of vectorized data points.
+    num
+        Number of features chosen.
+
+    """
     labels = [0] * len(data)
     c_1 = data[int(len(data)/2)] 
     distances = []
@@ -53,7 +81,6 @@ def lloyds(data, num):
         for i in range(0, len(labels)):
             center_lists[labels[i]].append(data[i])
         new_centers = [[] for i in range(len(centers))]
-        print(len(new_centers))
         for i in range(0, len(new_centers)):
             for j in range(0, num):
                 new_centers[i].append(np.mean([item[j] for item in center_lists[i]]))
@@ -70,6 +97,7 @@ def lloyds(data, num):
                 centers[a] = new_centers[a]
             center_lists = [[] for i in range(len(centers))]
     plot(centers, center_lists)
+
 def computeAlpha(data, labels):
     z_0 = labels.count(0)
     z_1 = labels.count(1)
