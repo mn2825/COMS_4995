@@ -17,9 +17,9 @@ The image above shows the list of features available to you from the 2017 CHS da
 # 2.  Choose features to perform clustering
 ![Image](/images/add_features.png?raw=true)
 
-In this example, the user chose four features (14, 39, 66, and 36) which address questions regarding race, experience with medical care, smoking, and insurance. K-Means will now compute the centers of the five clusters/regions we are aiming to identify within the data based on the chosen features. 
+In the first example, the user chose four features (14, 39, 66, and 36) which address questions regarding race, experience with medical care, smoking, and insurance. K-Means will now compute the centers of the five clusters/regions we are aiming to identify within the data based on the chosen features. 
 
-
+In the second example, the user chose two features (14, 39) which address questions regarding race and weight. A kernelized K-Means using a linear kernel was used in this example. 
 
 
 # 3. Clustering results
@@ -38,3 +38,6 @@ def plot(centers, center_lists):
 ```
 ![Image](/images/result2.png?raw=true)
 The code and plot above show the result of the K-means algorithm after convergence with respect to the first two features that were chosen. As we can see, there are five clearly segmented regions, each with an X at the region's mean.
+
+![Image](/images/linear_kernel.png?raw=true)
+The plot above shows the result of the kernelized K-means algorithm after convergence. The varied boundaries of the five regions are a result of the linear kernel used. 
