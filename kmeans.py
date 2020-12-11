@@ -4,8 +4,8 @@ import numpy as np
 from numpy import linalg as LA
 import pandas as pd
 from sklearn.metrics.pairwise import rbf_kernel
-#from sklearn.metrics.pairwise import linear_kernel
-#from sklearn.metrics.pairwise import polynomial_kernel
+from sklearn.metrics.pairwise import linear_kernel
+from sklearn.metrics.pairwise import polynomial_kernel
 #import dash
 #import dash_core_components as dcc
 #import dash_html_components as html
@@ -55,12 +55,11 @@ def lloyds(data, num):
             for center in range(0, len(centers)):
                 point_to_center_list.append(LA.norm(data[point]- centers[center]))
             labels[point] = np.argmin(point_to_center_list)
-        for label in range(0, len(labels)):
+        for label in range(0, len(labels)): #determien label of data point, and add to corresponding center list
             center_lists[labels[label]].append(data[label])
         new_centers = [[] for center in range(len(centers))]
-        print(len(new_centers))
         for cluster in range(0, len(new_centers)):
-            for number in range(0, num):
+            for number in range(0, num): #calc mean of everything to determine new cluster centers
                 new_centers[cluster].append(np.mean([item[number] for item in center_lists[cluster]]))
         all_same = []
         for cluster in range(0, len(centers)):
@@ -70,9 +69,9 @@ def lloyds(data, num):
                 all_same.append("False")
         if all_same.count("True") == len(all_same):
             break
-        for center in range(0, len(centers)):
+        for center in range(0, len(centers)):#update centers
             centers[center] = new_centers[center]
-        center_lists = [[] for center in range(len(centers))]
+        center_lists = [[] for point in range(0, len(centers))]
     plot(centers, center_lists)
 
 def compute_alpha(data, labels):
@@ -87,17 +86,17 @@ def compute_alpha(data, labels):
 def compute_distances(point, points,alpha): #alpha values for a particular cluster j (0 or 1)
     point = np.reshape(point,(1,-1))
     #first = polynomial_kernel(point, point, degree=2)
-    #first = linear_kernel(point, point)
-    first = rbf_kernel(point, point)
-    second = 0
-    third = 0
+    first = linear_kernel(point, point)
+    #first = rbf_kernel(point, point)
+    #second = 0
+    #third = 0
     #second =(alpha**2)*polynomial_kernel(points,points, degree=2)
-    #second = (alpha**2)*linear_kernel(points,points)
-    second = (alpha**2)*rbf_kernel(point, points)
+    second = (alpha**2)*linear_kernel(points,points)
+    #second = (alpha**2)*rbf_kernel(point, points)
     second_sum = np.sum(second)
     #third = polynomial_kernel(point, points, degree=2)
-    #third= linear_kernel(point, points)
-    third = rbf_kernel(point, points)
+    third= linear_kernel(point, points)
+    #third = rbf_kernel(point, points)
     third_sum = np.sum(third)
     distance = first + second_sum -(2*alpha*third_sum)
     return distance
@@ -106,14 +105,14 @@ def compute_initial(point1, point2):
     point1 = np.reshape(point1, (1,-1))
     point2 = np.reshape(point2, (1,-1))
     #first = polynomial_kernel(point1, point1, degree=2)
-    #first = linear_kernel(point1, point1)
-    first = rbf_kernel(point1, point1)
+    first = linear_kernel(point1, point1)
+    #first = rbf_kernel(point1, point1)
     #second = polynomial_kernel(point2, point2, degree=2)
-    #second = linear_kernel(point2, point2)
-    second = rbf_kernel(point2, point2)
+    second = linear_kernel(point2, point2)
+    #second = rbf_kernel(point2, point2)
     #third = polynomial_kernel(point1, point2, degree=2)
-    #third = linear_kernel(point1, point2)
-    third = rbf_kernel(point1, point2)
+    third = linear_kernel(point1, point2)
+    #third = rbf_kernel(point1, point2)
     distance = first + second -(2*third)
     return distance
 
@@ -140,6 +139,7 @@ def lloyds_kernel(data, num):
             center_lists[3].append(data[i])
         else:
             center_lists[4].append(data[i])
+    new_center_lists = [[] for point in range(0,5)]
     while(1):
         point_to_center_list = []
         alphas = compute_alpha(data, labels)
@@ -150,15 +150,10 @@ def lloyds_kernel(data, num):
                 point_to_center_list.append(compute_distances(data[point], center_lists[cluster_num], alpha))
             labels[point] = np.argmin(point_to_center_list)
         for point in range(0, len(labels)):
-            center_lists[labels[point]].append(data[point])
-        new_centers = [[] for point in range(len(centers))]
-        print(len(new_centers))
-        for cluster in range(0, len(new_centers)):
-            for num in range(0, num):
-                new_centers[cluster].append(np.mean([item[num] for item in center_lists[cluster]]))
+            new_center_lists[labels[point]].append(data[point])
         all_same = []
         for cluster in range(0, len(centers)):
-            if(np.array_equal(new_centers[cluster], centers[cluster])):
+            if(np.array_equal(new_center_lists[cluster], center_lists[cluster])):
                 all_same.append("True")
             else:
                 all_same.append("False")
@@ -166,8 +161,7 @@ def lloyds_kernel(data, num):
             break
         else:
             for cluster_num in range(0, len(centers)):
-                centers[cluster_num] = new_centers[cluster_num]
-            center_lists = [[] for i in range(len(centers))]
+                center_lists[cluster_num] = new_center_lists[cluster_num]
     plot(centers, center_lists)
 
 def process_and_run(features_list, num):
@@ -189,7 +183,7 @@ def process_and_run(features_list, num):
     for point in range(len(data1)):
         for feat in range(len(features_list)):
             data1[point][feat] = data1[point][feat] + random.uniform(0,1)
-    lloyds(data1, num)
+    #lloyds(data1, num)
     lloyds_kernel(data1, num)
 
 if __name__ =='__main__':
