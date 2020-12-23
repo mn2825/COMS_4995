@@ -30,7 +30,6 @@ cffi==1.12.3
 chardet==3.0.4
 Click==7.0
 cloudpickle==1.2.2
-clyent==1.2.2
 colorama==0.4.1
 commonmark==0.9.1
 conda==4.9.1
@@ -56,8 +55,6 @@ et-xmlfile==1.0.1
 execnet==1.7.1
 fastcache==1.1.0
 filelock==3.0.12
-Flask==1.1.1
-Flask-Compress==1.8.0
 fsspec==0.5.2
 future==0.17.1
 gast==0.3.3
