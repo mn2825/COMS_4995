@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2    
-      - name: Run Code Coverage
+      - name: Install reqs
         run: |
           pip install wheel
           pip install pytest
