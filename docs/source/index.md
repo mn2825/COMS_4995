@@ -8,9 +8,14 @@
    modules
 ```
 
-## Kernelized K-Means Details
+
 
 ```eval_rst
+
+------------------------------
+Kernelized K-Means Options
+------------------------------
+Performs K-Means in kernel space using linear, polynomial, or RBF kernels.
 
 --------------------
 Dataset Information
