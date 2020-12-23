@@ -9,7 +9,7 @@ from sklearn.metrics.pairwise import polynomial_kernel
 import matplotlib._color_data as mcd
 
 def get_centers(data, distances, num):
-     """ Returns list of initialized cluster centers and cluster lists
+    """ Returns list of initialized cluster centers and cluster lists
 
     Parameters
     ----------
