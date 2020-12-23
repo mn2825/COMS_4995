@@ -13,8 +13,8 @@ import sphinx_rtd_theme
 #
 import os
 import sys
-
 sys.path.insert(0, os.path.abspath('./python'))
+autodoc_mock_imports = ["kmeans"]
 from recommonmark.transform import AutoStructify
 
 # -- Project information -----------------------------------------------------
