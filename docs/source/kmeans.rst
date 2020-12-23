@@ -1,4 +1,4 @@
-kmeans module
+Kmeans module
 ==============
 
 .. automodule:: kmeans
