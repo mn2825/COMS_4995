@@ -1,5 +1,5 @@
 kmeans module
-=============
+==============
 
 .. automodule:: kmeans
    :members:
