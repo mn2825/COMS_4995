@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.7'
-      - name: Run Code Coverage
+      - name: Install Reqs
         run: |
           pip install wheel
           pip install pytest
